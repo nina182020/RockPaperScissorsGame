@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>RockPaperScissors</title>
+    <meta charset="UTF-8">
+</head>
+<body>
+
+<style>
+    body{
+        text-align: center;
+        font-size: 24px;
+        background-color: rgb(43, 43, 51);
+        color: white;
+    }
+    div{
+        margin: 40px;
+    }
+    button{
+        font-size: 18px;
+        font-weight: bold;
+        height: 30px;
+        width: auto;
+    }
+    #player{
+        display: inline-block;
+    }
+    #playerScore{
+        display: inline-block;
+    }
+    #computer{
+        display: inline-block;
+    }
+    #computerScore{
+        display: inline-block;
+    }
+    #result{
+        background-color: rgb(54, 69, 77);
+        border-radius: 5%;
+        padding: 10px;
+        max-width: 800px;
+        margin: auto;
+    }
+</style>
+
+
+<div>
+    <button id="rock">Rock</button>
+    <button id="paper">Paper</button>
+    <button id="scissors">Scissors</button>
+</div>
+<div id="player">Player:
+    <div id="playerScore">0</div>
+</div>
+<div id="computer">Computer:
+    <div id="computerScore">0</div>
+</div>
+<br>
+<div id="result">Result:
+    <div id="div2"></div>
+    <div id="div3"></div>
+</div>
+
+<script>
+let rock = document.getElementById("rock").addEventListener('click', playRock);
+let scissors = document.getElementById("scissors").addEventListener("click", playScissors);
+let paper = document.getElementById("paper").addEventListener('click', playPaper);
+
+function playRock(){  
+    document.getElementById("div2").innerHTML = "Player plays rock" ;
+    document.getElementById("div3").innerHTML = playRound('rock', computerPlay());
+}
+function playPaper(){    
+    document.getElementById("div2").innerHTML = "Player plays paper";
+    document.getElementById("div3").innerHTML = playRound('paper', computerPlay());
+}
+function playScissors(){ 
+    document.getElementById("div2").innerHTML = "Player plays scissors";
+    document.getElementById("div3").innerHTML = playRound('scissors', computerPlay());
+}
+   
+function computerPlay(){
+    let myArray = ['rock', 'paper', 'scissors'];
+    return myArray[~~(Math.random() * myArray.length)];
+}   
+
+let i = 0;
+function playerCount(){
+    while(true){
+        let count = ++i;
+        return count;
+    }
+}
+let ii = 0;
+function computerCount(){
+    while(true){
+        let count2 = ++ii;
+        return count2;
+    }
+}
+
+function playRound(playerSelection, computerSelection){
+    switch (true){
+        case playerSelection == 'rock' && computerSelection == 'paper':
+            document.getElementById("playerScore").innerHTML = playerCount(); 
+            return "Computer plays paper Player wins";
+            break;
+        case (playerSelection == 'rock' && computerSelection == 'scissors'):
+            document.getElementById("playerScore").innerHTML = playerCount(); 
+            return "Computer plays scissors Player wins";
+            break;
+        case (playerSelection == 'paper' && computerSelection == 'rock'):
+            document.getElementById("computerScore").innerHTML = computerCount(); 
+            return "Computer plays rock Computer wins";
+            break;
+        case (playerSelection == 'paper' && computerSelection == 'scissors'):
+            document.getElementById("computerScore").innerHTML = computerCount(); 
+            return "Computer plays scissors Computer wins";
+            break;
+        case (playerSelection == 'scissors' && computerSelection == 'paper'):
+            document.getElementById("playerScore").innerHTML = playerCount(); 
+            return "Computer plays paper Player wins";
+            break; 
+        case (playerSelection == 'scissors' && computerSelection == 'rock'):
+            document.getElementById("computerScore").innerHTML = computerCount(); 
+            return "Computer plays rock Computer wins";
+            break;
+        default:
+            return "It's a tie";
+    }
+}   
+
+</script>
+
+
+</body>
+</html>

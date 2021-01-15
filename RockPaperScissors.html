@@ -102,16 +102,16 @@ function computerCount(){
 function playRound(playerSelection, computerSelection){
     switch (true){
         case playerSelection == 'rock' && computerSelection == 'paper':
-            document.getElementById("playerScore").innerHTML = playerCount(); 
-            return "Computer plays paper Player wins";
+            document.getElementById("computerScore").innerHTML = computerCount(); 
+            return "Computer plays paper Computer wins";
             break;
         case (playerSelection == 'rock' && computerSelection == 'scissors'):
             document.getElementById("playerScore").innerHTML = playerCount(); 
             return "Computer plays scissors Player wins";
             break;
         case (playerSelection == 'paper' && computerSelection == 'rock'):
-            document.getElementById("computerScore").innerHTML = computerCount(); 
-            return "Computer plays rock Computer wins";
+            document.getElementById("playerScore").innerHTML = playerCount(); 
+            return "Computer plays rock Player wins";
             break;
         case (playerSelection == 'paper' && computerSelection == 'scissors'):
             document.getElementById("computerScore").innerHTML = computerCount(); 

@@ -7,48 +7,89 @@
 <body>
 
 <style>
-    body{
+    body {
         text-align: center;
         font-size: 24px;
         background-color: rgb(43, 43, 51);
         color: white;
     }
-    div{
-        margin: 40px;
+    div {
+        margin: 20px;
     }
-    button{
-        font-size: 18px;
-        font-weight: bold;
-        height: 30px;
-        width: auto;
-    }
-    #player{
+    #container div {
         display: inline-block;
     }
-    #playerScore{
+    img {
+        border-radius: 1%;
+        width: 200px;
+        height: 150px;
+    }
+    img:hover {
+        box-shadow: 0px 0px 20px rgb(181, 196, 201);
+    }
+    #player {
         display: inline-block;
     }
-    #computer{
+    #playerScore {
         display: inline-block;
     }
-    #computerScore{
+    #computer {
         display: inline-block;
     }
-    #result{
-        background-color: rgb(54, 69, 77);
-        border-radius: 5%;
+    #computerScore {
+        display: inline-block;
+    }
+    #result {
+        display: block;
+        background-color: rgb(71, 101, 117);
         padding: 10px;
-        max-width: 800px;
+        max-width: 550px;
+        height: 150px;
         margin: auto;
     }
+    #popup {
+        position: relative;
+        margin: auto;
+        top: -300px;
+        background-color: rgb(86, 96, 143);
+        width: 600px;
+        height: 300px;
+        font-size: 34px;
+        border-radius: 2%;
+        
+    }
+    #gameWinner {
+        text-align: center;
+        padding: 40px;
+    }
+    button {
+        position: absolute;
+        bottom: 50px;
+        left: 240px;
+        font-size: 20px;
+    }
+    #hide {
+        display: none;
+    }
+
 </style>
 
 
-<div>
-    <button id="rock">Rock</button>
-    <button id="paper">Paper</button>
-    <button id="scissors">Scissors</button>
+<div id="container">
+    <div>
+        <img id="rock" src="https://p0.piqsels.com/preview/1018/697/172/rock-pebble-sunset-stones.jpg" alt="Rock">
+        <p>Rock</p>
+    </div>
+    <div>
+        <img id="paper" src="https://content.instructables.com/ORIG/F6O/PDL9/IBJ769QN/F6OPDL9IBJ769QN.jpg?auto=webp&frame=1&width=840&fit=bounds&md=1c8c0ceb8ed7e7ba611ef1cd5365bfe9" alt="Paper">
+        <p>Paper</p>
+    </div>
+    <div>
+        <img id="scissors" src="https://cdn.thewirecutter.com/wp-content/uploads/2015/03/scissors-kitchen-shears-lowres.jpg" alt="Scissors">
+        <p>Scissors</p>
+    </div>
 </div>
+
 <div id="player">Player:
     <div id="playerScore">0</div>
 </div>
@@ -61,12 +102,20 @@
     <div id="div3"></div>
 </div>
 
+<div id="hide">
+    <div id="popup">
+        <p id="gameWinner">Winner!</p>
+        <button id="restart">Play again!</button>
+    </div>
+</div>
+
 <script>
 let rock = document.getElementById("rock").addEventListener('click', playRock);
-let scissors = document.getElementById("scissors").addEventListener("click", playScissors);
-let paper = document.getElementById("paper").addEventListener('click', playPaper);
+let paper= document.getElementById("paper").addEventListener('click', playPaper);
+let scissors = document.getElementById("scissors").addEventListener('click', playScissors);
+let restart = document.getElementById("restart").addEventListener('click', playAgain);
 
-function playRock(){  
+function playRock(){
     document.getElementById("div2").innerHTML = "Player plays rock" ;
     document.getElementById("div3").innerHTML = playRound('rock', computerPlay());
 }
@@ -79,28 +128,63 @@ function playScissors(){
     document.getElementById("div3").innerHTML = playRound('scissors', computerPlay());
 }
    
-function computerPlay(){
+function computerPlay() {
     let myArray = ['rock', 'paper', 'scissors'];
     return myArray[~~(Math.random() * myArray.length)];
-}   
+};
 
-let i = 0;
-function playerCount(){
-    while(true){
-        let count = ++i;
-        return count;
-    }
-}
-let ii = 0;
-function computerCount(){
-    while(true){
-        let count2 = ++ii;
-        return count2;
-    }
-}
+let count = 0;
+function playerCount() {
+    if (scoreTotal < roundCount) {
+    count = ++count;
+    return count;
+    };
+};
+let count2 = 0;
+function computerCount() {
+    if (scoreTotal < roundCount) {
+    count2 = ++count2;
+    return count2;  
+    };
+};
 
-function playRound(playerSelection, computerSelection){
-    switch (true){
+let show = document.getElementById("hide");
+function showPopup() {
+    if (show.style.display = "none") {
+        show.style.display = "block";
+    };
+};
+
+let winner = document.getElementById("gameWinner");
+let scoreTotal = 0;
+let roundCount = 3;
+function addScore() {
+    scoreTotal = count + count2;
+    if (scoreTotal == roundCount) {
+        switch(true){
+            case count > count2:
+                winner.innerHTML = "Player wins the game!";
+                showPopup();
+                return scoreTotal;
+                break;
+            case count < count2:
+                winner.innerHTML = "Computer Wins the game!";
+                showPopup();
+                return scoreTotal;
+                break;
+            case count == count2:
+                winner.innerHTML = "It's a tie!";
+                showPopup()
+                return scoreTotal;
+
+        }
+    }
+    
+}
+document.addEventListener('click', addScore);
+
+function playRound(playerSelection, computerSelection) {
+    switch (true) {
         case playerSelection == 'rock' && computerSelection == 'paper':
             document.getElementById("computerScore").innerHTML = computerCount(); 
             return "Computer plays paper Computer wins";
@@ -127,8 +211,12 @@ function playRound(playerSelection, computerSelection){
             break;
         default:
             return "It's a tie";
-    }
-}   
+    };
+};
+
+function playAgain () {
+    location.reload();
+}
 
 </script>
 
